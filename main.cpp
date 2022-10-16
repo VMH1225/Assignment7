@@ -48,7 +48,7 @@ int menuOption()
     return option;
 }
 
-// use alejnadros class that converts infix notation to postfix notation.
+// use option2 class that converts infix notation to postfix notation.
 // assume that his program return a valid postfix expression
 // Now you have the postfix notation expression
 // create stack template
@@ -126,22 +126,22 @@ double operate(stack<double>& nums, string op) {
         nums.push(leftOperand + rightOperand);   
     }
     else if(op == "-") {
-        cout << "\nSubtraction time hijo de puta chingada madre\n";
+        cout << "\nSubtraction\n";
         cout << leftOperand << " - " << rightOperand << " = " << leftOperand - rightOperand << endl;
         nums.push(leftOperand - rightOperand);
     }
     else if (op == "*") {
-        cout << "Multiplication time hijo de puta chingada madre\n";
+        cout << "Multiplication\n";
         cout << leftOperand << " * " << rightOperand << " = " << leftOperand * rightOperand << endl;
         nums.push(leftOperand * rightOperand);
     }
     else if (op == "/") {
-        cout << "Division time hijo de puta chingada madre\n";
+        cout << "Division\n";
         cout << leftOperand << " / " << rightOperand << " = " << leftOperand / rightOperand << endl;
         nums.push(leftOperand / rightOperand);
     }
     else if (op == "^") {
-        cout << "Division time hijo de puta chingada madre\n";
+        cout << "Exponential\n";
         cout << leftOperand << " ^ " << rightOperand << " = " << pow(leftOperand, rightOperand) << endl;
         nums.push(pow(leftOperand, rightOperand));
     }
