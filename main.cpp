@@ -12,8 +12,8 @@
 using namespace std;
 int menuOption();
 void challenge1();
-void printStack(stack<double> s);
-double operate(stack<double>& nums, string op);
+//void printStack(stack<double> s);
+void operate(stack<double>& nums, string op);
 
 int main() {
     do
@@ -48,40 +48,31 @@ int menuOption()
     return option;
 }
 
-// use option2 class that converts infix notation to postfix notation.
-// assume that his program return a valid postfix expression
-// Now you have the postfix notation expression
-// create stack template
-// 2 stacks are created using stack template
-// pseudocode for this problem found on page 377-378 & 380
-
 void challenge1() {
     string expression = "";
     bool flag = true;
     string option = "";
     stack<double> numbers;
     double tempNum;
-
+    cout << "\n\t\tSimple Calculator";
+    cout << "\n\t\t" + string(80, char(205));
     do {
-
-        cout << "\n\t\tSimple Calculator";
-        cout << "\n\t\t" + string(80, char(205));
+        while (!numbers.empty()) {
+            numbers.pop();
+        }
         cout << "\n\t\tEnter an arithmetic expression: ";
 
         getline(cin, expression);
 
-        // printing out words function 
         string word = "";
         for (auto x : expression)
         {
             if (x == ' ')
             {
                 if (word == "*" || word == "/" || word == "+" || word == "-" || word == "^") {
-                    cout << "Calling operator sending " << word << " operator.\n";
-                    operate(numbers, word);               
+                    operate(numbers, word);
                 }
                 else {
-                    cout << "It is a number " << word << endl;
                     numbers.push(stod(word));
                 }
                 word = "";
@@ -91,30 +82,33 @@ void challenge1() {
             }
         }
         if (word == "*" || word == "/" || word == "+" || word == "-" || word == "^") {
-            cout << "Calling operator sending " << word << " operator.\n";
             operate(numbers, word);
         }
         else {
-            cout << "It is a number " << word << endl;
             numbers.push(stod(word));
         }
-        // printing out word
-        cout << "\nprinting stack\n\n";
-        printStack(numbers);
+        if (!numbers.empty()) {
+            cout << "\n\tResult: " << numbers.top() << endl;
+        }
+        do {
+            option = inputString("\n\tEnter another arithmetic expression? (Yes or No): ", 0);
+            option = tolower(option[0]);
+        } while (option != "y" && option != "n");
 
-        system("pause");
-    } while (false);
+        if (option == "n" || option == "N") {
+            flag = false;
+        }
+
+    } while (flag == true);
 }
 
-double operate(stack<double>& nums, string op) {
+void operate(stack<double>& nums, string op) {
     double leftOperand = 0;
     double rightOperand = 0;
     if (nums.empty()) {
         cout << "\nError empty stack\n";
-        return 1.1;
     }
-    cout << "\nThe size of the stack is " << nums.size() << endl;
-    cout << "\nThe operator passed in is " << op << endl;
+
     if (nums.size() >= 2) {
         rightOperand = nums.top();
         nums.pop();
@@ -122,76 +116,45 @@ double operate(stack<double>& nums, string op) {
         nums.pop();
     }
     if (op == "+") {
-        cout << leftOperand << " + " << rightOperand << " = " << leftOperand + rightOperand << endl;
         nums.push(leftOperand + rightOperand);   
     }
     else if(op == "-") {
-        cout << "\nSubtraction\n";
-        cout << leftOperand << " - " << rightOperand << " = " << leftOperand - rightOperand << endl;
         nums.push(leftOperand - rightOperand);
     }
     else if (op == "*") {
-        cout << "Multiplication\n";
-        cout << leftOperand << " * " << rightOperand << " = " << leftOperand * rightOperand << endl;
         nums.push(leftOperand * rightOperand);
     }
     else if (op == "/") {
-        cout << "Division\n";
-        cout << leftOperand << " / " << rightOperand << " = " << leftOperand / rightOperand << endl;
         nums.push(leftOperand / rightOperand);
     }
     else if (op == "^") {
-        cout << "Exponential\n";
-        cout << leftOperand << " ^ " << rightOperand << " = " << pow(leftOperand, rightOperand) << endl;
         nums.push(pow(leftOperand, rightOperand));
     }
     else {
         cout << "\nInvalid operator\n";
     }
-    return 1.1;
 }
 
-void printStack(stack<double> s)
-{
-    // If stack is empty
-    if (s.empty())
-        return;
-
-    // Extract top of the stack
-    double x = s.top();
-
-    // Pop the top element
-    s.pop();
-
-    // Print the current top
-    // of the stack i.e., x
-    cout << x << ' ';
-
-    // Proceed to print
-// remaining stack
-    printStack(s);
-
-    // Push the element back
-    s.push(x);
-}
-
-
-            // how this shoul work
-            // go through the expression        
-            // take each space separated number and add it to the stack
-            // when an operand is ecountered pop 2 elements off the stack evaluate them using the operand and push value on to the stack
-            // the number remaining after we have gone through the entire expression is the answer
-
-    
-
-       /* do {
-            option = inputString("\n\tEnter another arithmetic expression? (Yes or No): ", 0);
-            option = tolower(option[0]);
-            cout << "\nThe option you entered was " << option << endl;
-        } while (option != "y" && option != "n");
-        if (option == "n" || option == "N") {
-            flag = false;
-        }
-    }while (flag == true);*/
-
-
+//void printStack(stack<double> s)
+//{
+//    // If stack is empty
+//    if (s.empty())
+//        return;
+//
+//    // Extract top of the stack
+//    double x = s.top();
+//
+//    // Pop the top element
+//    s.pop();
+//
+//    // Print the current top
+//    // of the stack i.e., x
+//    cout << x << ' ';
+//
+//    // Proceed to print
+//// remaining stack
+//    printStack(s);
+//
+//    // Push the element back
+//    s.push(x);
+//}
